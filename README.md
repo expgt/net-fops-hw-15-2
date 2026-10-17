@@ -26,8 +26,11 @@
 
 1. Изучен проект и файл variables.tf с переменными для Yandex provider.
 2. Создан сервисный аккаунт и ключ. [service_account_key_file](https://terraform-provider.yandexcloud.net).
+
+![1_2](https://github.com/expgt/net-fops-hw-15-2/blob/main/15_2_1_2.png)
+
 4. Использован текущий ssh-ключ. Открытая(public) часть ключа добавлена в переменную **vms_ssh_public_root_key** через файл terraform.tfvars.
-5. Инициализируйте проект, выполните код. Исправьте намеренно допущенные синтаксические ошибки. Ищите внимательно, посимвольно. Ответьте, в чём заключается их суть.
+5. Инициализирован проект, выполнен код. Исправлены допущенные ошибки:
 
 ```
 │ Error: Error while requesting API to create instance: x-request-id = c1c962c5-258c-4ae0-a134-c157ef05a78f x-server-trace-id = 1bbc4b20ccb5d564:fe6ec242ddd5a660:b51d671c71827f45:1 x-client-trace-id = 72557b86-aaef-4d0c-be4d-ef44b5f09a3e rpc error: code = FailedPrecondition desc = Platform"standart-v4" not found
@@ -36,7 +39,7 @@
 │   on main.tf line 15, in resource "yandex_compute_instance" "platform":
 │   15: resource "yandex_compute_instance" "platform" {
 ```
-Исправлено значение platform_id = "standart-v4" на platform_id = "standard-v3" (Yandex Compute Cloud не предусмотрена платформа standart-v4), также исправлена синтаксическая ошибка
+Исправлено значение platform_id = "standart-v4" на platform_id = "standard-v3" (Yandex Compute Cloud не предусмотрена платформа standart-v4), также исправлена ошибка в написании аргумента
 
 ```
 │ Error: Error while requesting API to create instance: x-request-id = 4a3987ec-73b0-4a03-80db-264c863e0629 x-server-trace-id = dc74035fcd7bce84:0902e19d02eecaa7:80a660b7e191797a:1 x-client-trace-id = dbee7271-6a6f-4b9a-bdc9-59e71639ce2b rpc error: code = InvalidArgument desc = the specified core fraction is not available on platform "standard-v3"; allowed core fractions: 20, 50, 100
