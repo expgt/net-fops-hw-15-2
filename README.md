@@ -10,26 +10,24 @@
 
 1. Зарегистрирован аккаунт в Yandex Cloud. Использован промокод на грант.
 2. Установлен инструмент Yandex CLI.
-3. Исходный код для выполнения задания расположен в директории [**02/src**](https://github.com/netology-code/ter-homeworks/tree/main/02/src).
+3. Исходный код для выполнения задания взят из директории [**02/src**](https://github.com/netology-code/ter-homeworks/tree/main/02/src).
 
+------
 
 ### Задание 0
 
-1. Ознакомьтесь с [документацией к security-groups в Yandex Cloud](https://cloud.yandex.ru/docs/vpc/concepts/security-groups?from=int-console-help-center-or-nav). 
-Этот функционал понадобится к следующей лекции.
+1. Изучена [документацией к security-groups в Yandex Cloud](https://cloud.yandex.ru/docs/vpc/concepts/security-groups?from=int-console-help-center-or-nav) для подготовки к следующей лекции.
 
 ---
 
 ### Задание 1
-В качестве ответа всегда полностью прикладывайте ваш terraform-код в git.
-Убедитесь что ваша версия **Terraform** ~>1.12.0
 
 1. Изучен проект и файл variables.tf с переменными для Yandex provider.
 2. Создан сервисный аккаунт и ключ. [service_account_key_file](https://terraform-provider.yandexcloud.net).
 
 ![1_2](https://github.com/expgt/net-fops-hw-15-2/blob/main/15_2_1_2.png)
 
-4. Использован текущий ssh-ключ. Открытая(public) часть ключа добавлена в переменную **vms_ssh_public_root_key** через файл terraform.tfvars.
+4. Использован текущий ssh-ключ. Открытая (public) часть ключа добавлена в переменную **vms_ssh_public_root_key** через файл terraform.tfvars.
 5. Инициализирован проект, выполнен код. Исправлены допущенные ошибки:
 
 ```
@@ -39,7 +37,7 @@
 │   on main.tf line 15, in resource "yandex_compute_instance" "platform":
 │   15: resource "yandex_compute_instance" "platform" {
 ```
-Исправлено значение platform_id = "standart-v4" на platform_id = "standard-v3" (Yandex Compute Cloud не предусмотрена платформа standart-v4), также исправлена ошибка в написании аргумента
+Исправлено значение platform_id = "standart-v4" на platform_id = "standard-v3" (в Yandex Compute Cloud не предусмотрена платформа standart-v4), также исправлена ошибка в написании аргумента.
 
 ```
 │ Error: Error while requesting API to create instance: x-request-id = 4a3987ec-73b0-4a03-80db-264c863e0629 x-server-trace-id = dc74035fcd7bce84:0902e19d02eecaa7:80a660b7e191797a:1 x-client-trace-id = dbee7271-6a6f-4b9a-bdc9-59e71639ce2b rpc error: code = InvalidArgument desc = the specified core fraction is not available on platform "standard-v3"; allowed core fractions: 20, 50, 100
@@ -93,7 +91,7 @@
 ### Задание 3
 
 1. В корне проекта создан файл 'vms_platform.tf' . В него перенесены все переменные первой ВМ.
-2. Скопирован блок ресурса и создана с его помощью вторая ВМ в файле main.tf: **"netology-develop-platform-db"** , ```cores  = 2, memory = 2, core_fraction = 20```. Объявлены её переменные с префиксом **vm_db_** в том же файле ('vms_platform.tf').  ВМ размещена в зоне "ru-central1-b"
+2. Скопирован блок ресурса и создана с его помощью вторая ВМ в файле main.tf: **"netology-develop-platform-db"** , ```cores  = 2, memory = 2, core_fraction = 20```. Объявлены её переменные с префиксом **vm_db_** в том же файле ('vms_platform.tf'). ВМ размещена в зоне "ru-central1-d"
 3. Применены изменения.
 
 ![3_3](https://github.com/expgt/net-fops-hw-15-2/blob/main/15_2_3_3.png)
@@ -102,7 +100,7 @@
 
 ### Задание 4
 
-1. В файле outputs.tf объявлен **один** output , содержащий: instance_name, external_ip, fqdn для каждой из ВМ.
+1. В файле outputs.tf объявлен **один** output, содержащий: instance_name, external_ip, fqdn для каждой из ВМ.
 2. Применены изменения.
 
 Вывод значений ip-адресов команды ```terraform output```:
@@ -123,7 +121,7 @@
 
 ### Задание 6
 
-1. Вместо использования трёх переменных  ".._cores",".._memory",".._core_fraction" в блоке  resources {...}, произведено их объединение в единую map-переменную **vms_resources** и внутри неё объеденены конфиги обеих ВМ в виде вложенного map(object).
+1. Вместо использования трёх переменных  ".._cores",".._memory",".._core_fraction" в блоке resources {...}, произведено их объединение в единую map-переменную **vms_resources** и внутри неё объеденены конфиги обеих ВМ в виде вложенного map(object).
 3. Создана и использована отдельная map(object) переменная для блока metadata, общая для всех ВМ.
 5. Закоментированы все, более не используемые переменные проекта.
 6. Выполнен terraform apply. Изменений нет.
@@ -171,7 +169,7 @@ local.test_map.admin
 
 4. Напишите interpolation-выражение, результатом которого будет: "John is admin for production server based on OS ubuntu-20-04 with X vcpu, Y ram and Z virtual disks", используйте данные из переменных test_list, test_map, servers и функцию length() для подстановки значений.
 
-Для вывода данной фразы необходимо использовать вырежение
+Для вывода данной фразы необходимо использовать выражение:
 ```
 "${local.test_map.admin} is admin for ${local.test_list[2]} server based on OS ${local.servers.production.image} with ${local.servers.production.cpu} vcpu, ${local.servers.production.ram} ram and ${length(local.servers.production.disks)} virtual disks"
 ```
