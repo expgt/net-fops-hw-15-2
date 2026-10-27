@@ -61,9 +61,9 @@ resource "yandex_compute_instance" "platform_db" {
   platform_id = var.vm_db_platform
   zone        = var.zone_db
   resources {
-    cores         = var.vms_resources.web.cores
-    memory        = var.vms_resources.web.memory
-    core_fraction = var.vms_resources.web.core_fraction
+    cores         = var.vms_resources.db.cores
+    memory        = var.vms_resources.db.memory
+    core_fraction = var.vms_resources.db.core_fraction
   }
   boot_disk {
     initialize_params {

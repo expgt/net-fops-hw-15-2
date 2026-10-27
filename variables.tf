@@ -1,6 +1,5 @@
 ###cloud vars
 
-
 variable "cloud_id" {
   type        = string
   description = "https://cloud.yandex.ru/docs/resource-manager/operations/cloud/get-id"
@@ -47,54 +46,24 @@ variable "project" {
   description = "project"
 }
 
-variable "vm_web_name" {
+variable "subnet_db_name" {
   type        = string
-  default     = "netology-develop-platform-web"
-  description = "VM name"
+  default     = "develop_db"
+  description = "db subnet name"
 }
 
-variable "vm_web_platform" {
+
+variable "zone_db" {
   type        = string
-  default     = "standard-v3"
-  description = "platform VM"
+  default     = "ru-central1-d"
+  description = "zone for vm_db"
 }
 
-# variable "vm_web_cores" {
-#   type        = number
-#   default     = "2"
-#   description = "cores VM"
-# }
-
-# variable "vm_web_memory" {
-#   type        = number
-#   default     = "1"
-#   description = "memory VM"
-# }
-
-# variable "vm_web_core_fraction" {
-#   type        = number
-#   default     = "20"
-#   description = "core fraction VM"
-# }
-
-variable "vm_web_preemptible" {
-  type        = bool
-  default     = true
-  description = "preemptible VM"
+variable "cidr_db" {
+  type        = list(string)
+  default     = ["10.0.2.0/24"]
+  description = "cidr for subnet_db"
 }
-
-variable "vm_web_nat" {
-  type        = bool
-  default     = false
-  description = "nat VM"
-}
-
-# variable "vm_web_serial_port" {
-#   type        = number
-#   default     = "1"
-#   description = "serial port VM"
-# }
-
 
 ###ssh vars
 
@@ -103,9 +72,3 @@ variable "vm_web_nat" {
 #   #default     = "<your_ssh_ed25519_key>"
 #   description = "save in terraform.tfvars"
 # }
-
-
-variable "test" {
-  description = "List of maps"
-  type        = list(map(list(string)))
-}
