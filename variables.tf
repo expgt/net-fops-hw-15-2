@@ -72,3 +72,8 @@ variable "cidr_db" {
 #   #default     = "<your_ssh_ed25519_key>"
 #   description = "save in terraform.tfvars"
 # }
+
+variable "test" {
+  description = "List of maps"
+  type        = list(map(list(string)))
+}

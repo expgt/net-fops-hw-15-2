@@ -137,8 +137,3 @@ variable "vms_metadata" {
     }
   }
 }
-
-variable "test" {
-  description = "List of maps"
-  type        = list(map(list(string)))
-}
